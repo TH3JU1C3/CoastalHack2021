@@ -56,10 +56,6 @@ const buildShelves2 = function(ctx, level)
             shelf = levels[0][i][j]
             if (shelf)
             {
-                mapLevel.fillStyle = "#EC7C5F"; // hex for cube color
-                mapLevel.beginPath();
-                mapLevel.rect(shelfX, shelfY, 32, 32);
-                mapLevel.fill();
                 new Shelf(shelfX, shelfY);
             }
             shelfX += 32;
@@ -188,9 +184,8 @@ const controller = {
 
 };
 
+//Loop where all the important stuff happens
 const loop = function () {
-
-
     speed = 0.25;
     if (controller.up) {
             player.yVelocity -= speed;
@@ -234,6 +229,7 @@ const loop = function () {
         player.xVelocity = 0;
   }
   
+    //Drawing all the important stuff
     makeFloor(mapLevel);  
     buildShelves(mapLevel, currentLevel);  
     player.draw(mapLevel);
