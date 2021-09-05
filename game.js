@@ -25,7 +25,7 @@ const buildShelves = function(ctx)
             shelf = levels[0][i][j]
             if (shelf)
             {
-                mapLevel.fillStyle = "#8DAA9D"; // hex for cube color
+                mapLevel.fillStyle = "#EC7C5F"; // hex for cube color
                 mapLevel.beginPath();
                 mapLevel.rect(shelfX, shelfY, 32, 32);
                 mapLevel.fill();
