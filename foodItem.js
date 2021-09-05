@@ -19,8 +19,8 @@ shelves = new Array                         //an array listing all the shelves t
 
 class Shelf {
     constructor(x, y) {           
-        this.x = x                        
-        this.y = y
+        this.x = x * 32                        
+        this.y = y * 32
         this.width = 32
         this.heigth = 32
         shelves.push(this)
