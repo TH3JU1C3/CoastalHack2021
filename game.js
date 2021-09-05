@@ -11,7 +11,7 @@ const foodXCoors = [];
 
 const player = {
 
-    img : document.getElementById("banana"),
+    img : document.getElementById("player"),
     height: 32,
     width: 32,
     x: 0,
