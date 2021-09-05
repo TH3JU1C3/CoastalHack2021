@@ -14,17 +14,17 @@ class foodItem {
     }
 }
 
-foods = new Array
+foods = new Array                           //an array listing all the foods that have been made
 
 class Shelf {
-    constructor(vertical, size) {
-        this.x = 0
+    constructor(vertical, size) {           //verticality is signified by a Boolean. True means the shelf should be vertically aligned, and false horizontally.
+        this.x = 0                          //size refers to how many 32x32 slots the shelf uses. each slot provides room for one food item
         this.y = 0
         this.width = 32
         this.heigth = 32
         this.size = size
-        this.slots = new Array
-        if (vertical) {
+        this.slots = new Array              //an Array showing which foods are placed on the shelf
+        if (vertical) {                     //checks if it's horizontal or vertical, and adjusts heigth/width accordingly
             this.width = 32
             this.heigth = 32 * size
         } else {
@@ -32,15 +32,15 @@ class Shelf {
             this.heigth = 32
         }
     }
-    position = function(xpar, ypar) {
+    position = function(xpar, ypar) {       //sets the position of the shelf. presumably where the top-left corner of the shelf is.
         this.x = xpar
         this.y = ypar
     }
-    placeItem = function(food) {
-        if (this.slots.length < this.size) {
-            this.slots.push(food)
-            if (this.vertical) {
-                food.xpos = this.x
+    placeItem = function(food) {            
+        if (this.slots.length < this.size) {        //can't place in a full shelf
+            this.slots.push(food)                   //adds the food to the next slot
+            if (this.vertical) {                    //checks vertical/horizontal
+                food.xpos = this.x 
                 food.ypos = this.y + 32*(this.slots.length - 1)
             } else {
                 food.xpos = this.x + 32*(this.slots.length - 1)
