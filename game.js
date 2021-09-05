@@ -1,5 +1,5 @@
 const mapLevel = document.querySelector("canvas").getContext("2d");
-const imagetest = 
+//const imagetest = 
 height = 500;
 width = 1220;
 
@@ -11,7 +11,7 @@ const foodXCoors = [];
 
 const player = {
 
-    img : document.getElementById("banana.png"),
+    img : document.getElementById("banana"),
     height: 32,
     width: 32,
     x: 0,
@@ -108,7 +108,7 @@ const loop = function () {
 //   mapLevel.beginPath();
 //   mapLevel.rect(player.x, player.y, player.width, player.height);
 //   mapLevel.fill();
-player.draw();
+player.draw(mapLevel);
     
 
   // call update when the browser is ready to draw again
