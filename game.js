@@ -131,7 +131,7 @@ const controller = {
 };
 
 const loop = function () {
-    speed = 0.5;
+    speed = 0.25;
     if (controller.up) {
             player.yVelocity -= speed;
     }
