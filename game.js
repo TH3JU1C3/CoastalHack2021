@@ -1,5 +1,5 @@
 const mapLevel = document.querySelector("canvas").getContext("2d");
-
+const imagetest = 
 height = 500;
 width = 1220;
 
@@ -11,12 +11,17 @@ const foodXCoors = [];
 
 const player = {
 
-  height: 32,
-  width: 32,
-  x: 0,
-  xVelocity: 0,
-  y: 0,
-  yVelocity: 0
+    img : document.getElementById("banana.png"),
+    height: 32,
+    width: 32,
+    x: 0,
+    xVelocity: 0,
+    y: 0,
+    yVelocity: 0,
+
+    draw: function(ctx){
+        ctx.drawImage(this.img, this.x, this.y);
+    }
 };
 
 
@@ -65,8 +70,8 @@ const loop = function () {
         player.xVelocity += speed;
     }
 
-    player.x += player.xVelocity;
-    player.y += player.yVelocity;
+    player.x += player.xVelocity;// movement
+    player.y += player.yVelocity;// movement
     player.xVelocity *= 0.9;// friction
     player.yVelocity *= 0.9;// friction
 
@@ -99,10 +104,12 @@ const loop = function () {
 
 
   // Creates and fills the cube for each frame
-  mapLevel.fillStyle = "#8DAA9D"; // hex for cube color
-  mapLevel.beginPath();
-  mapLevel.rect(player.x, player.y, player.width, player.height);
-  mapLevel.fill();
+//   mapLevel.fillStyle = "#8DAA9D"; // hex for cube color
+//   mapLevel.beginPath();
+//   mapLevel.rect(player.x, player.y, player.width, player.height);
+//   mapLevel.fill();
+player.draw();
+    
 
   // call update when the browser is ready to draw again
   window.requestAnimationFrame(loop);
