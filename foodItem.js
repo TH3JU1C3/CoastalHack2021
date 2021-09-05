@@ -15,6 +15,7 @@ class foodItem {
 }
 
 foods = new Array                           //an array listing all the foods that have been made
+shelves = new Array                         //an array listing all the shelves that have been made
 
 class Shelf {
     constructor(vertical, size) {           //verticality is signified by a Boolean. True means the shelf should be vertically aligned, and false horizontally.
@@ -31,6 +32,7 @@ class Shelf {
             this.width = 32 * size
             this.heigth = 32
         }
+        shelves.push(this)
     }
     position = function(xpar, ypar) {       //sets the position of the shelf. presumably where the top-left corner of the shelf is.
         this.x = xpar
