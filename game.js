@@ -1,7 +1,7 @@
 const mapLevel = document.querySelector("canvas").getContext("2d");
 //const imagetest = 
-height = 500;
-width = 1220;
+height = 448;
+width = 1216;
 
 mapLevel.canvas.height = height;
 mapLevel.canvas.width = width;
