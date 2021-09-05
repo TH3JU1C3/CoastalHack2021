@@ -75,7 +75,9 @@ const foodXCoors = [];
 
 const player = {
 
-    img : document.getElementById("player"),
+    img : document.getElementById("playerR"),
+    img2: document.getElementById("playerL"),
+    right: true,
     height: 32,
     width: 32,
     x: 0,
@@ -84,7 +86,14 @@ const player = {
     yVelocity: 0,
 
     draw: function(ctx){
-        ctx.drawImage(this.img, this.x, this.y);
+        if (this.right)
+        {
+            ctx.drawImage(this.img, this.x, this.y);
+        }
+        else
+        {
+            ctx.drawImage(this.img2, this.x, this.y);
+        }
     }
 };
 
@@ -103,12 +112,14 @@ const controller = {
 
         case 37:// left key
             controller.left = key_state;
+            player.right = false;
             break;
         case 38:// up key
             controller.up = key_state;
             break;
         case 39:// right key
             controller.right = key_state;
+            player.right = true;
             break;
         case 40: // down key
             controller.down = key_state;
@@ -131,7 +142,7 @@ const loop = function () {
             player.xVelocity -= speed;
     }
     if (controller.right) {
-        player.xVelocity += speed;
+            player.xVelocity += speed;
     }
 
     player.x += player.xVelocity;// movement
