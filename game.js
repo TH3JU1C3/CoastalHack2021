@@ -1,10 +1,19 @@
 const mapLevel = document.querySelector("canvas").getContext("2d");
-//const imagetest = 
 height = 448;
 width = 1216;
 
 mapLevel.canvas.height = height;
 mapLevel.canvas.width = width;
+
+//Makes floor
+const makeFloor = function(ctx)
+{
+    floor = document.getElementById("floor")
+    var pattern = ctx.createPattern(floor, 'repeat');
+    ctx.fillStyle = pattern;
+    ctx.fillRect(0,0,width, height);
+}
+
 
 const levels = [
 	[0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0],
@@ -115,17 +124,9 @@ const loop = function () {
         player.x = width - player.width;
         player.xVelocity = 0;
   }
-  // Creates the backdrop for each frame
-  mapLevel.fillStyle = "#201A23";
-  mapLevel.fillRect(0, 0, width, height); // x, y, width, height
-
-
-  // Creates and fills the cube for each frame
-//   mapLevel.fillStyle = "#8DAA9D"; // hex for cube color
-//   mapLevel.beginPath();
-//   mapLevel.rect(player.x, player.y, player.width, player.height);
-//   mapLevel.fill();
-player.draw(mapLevel);
+  
+    makeFloor(mapLevel);    
+    player.draw(mapLevel);
     
 
   // call update when the browser is ready to draw again
