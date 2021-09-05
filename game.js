@@ -13,6 +13,28 @@ const makeFloor = function(ctx)
     ctx.fillStyle = pattern;
     ctx.fillRect(0,0,width, height);
 }
+const buildShelves = function(ctx)
+{
+    shelfX = 0
+    shelfY = 0
+    for (i = 0; i < levels[0].length; i ++)
+    {
+        shelfX = 0;
+        for (j = 0; j < levels[0][0].length; j++)
+        {
+            shelf = levels[0][i][j]
+            if (shelf)
+            {
+                mapLevel.fillStyle = "#8DAA9D"; // hex for cube color
+                mapLevel.beginPath();
+                mapLevel.rect(shelfX, shelfY, 32, 32);
+                mapLevel.fill();
+            }
+            shelfX += 32;
+        }
+        shelfY += 32;
+    }
+}
 
 
 const levels = [[
@@ -141,7 +163,8 @@ const loop = function () {
         player.xVelocity = 0;
   }
   
-    makeFloor(mapLevel);    
+    makeFloor(mapLevel);  
+    buildShelves(mapLevel);  
     player.draw(mapLevel);
     
 
