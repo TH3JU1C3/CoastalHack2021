@@ -4,14 +4,20 @@
 	<head>
 		<title>Shopping game</title>
 		<style>
-			.canvas-container {
-				height: 448px;
-				width: 1024px;
-				text-align: center;
+			body{
+				background-color: bisque;
 			}
-			canvas
-			{
-				display: inline;
+			canvas {
+				padding: 0;
+				margin: auto;
+				display: block;
+				width: 1024px;
+				height: 448px;
+				position: absolute;
+				top: 0;
+				bottom: 0;
+				left: 0;
+				right: 0;
 			}
 			aside {
 				width: 300px;
@@ -23,10 +29,7 @@
 		</style>
 	</head>
 	<body>
-		<div id="canvas-container">
-			<canvas></canvas>	
-		</div>
-
+		<canvas></canvas>	
 		<!-- Assets under here -->
 		<img id = "cheese" src=".\foodArt\American_cheese_p.png" class="asset">
 		<img id = "bacon" src=".\foodArt\bacon.png" class="asset">
