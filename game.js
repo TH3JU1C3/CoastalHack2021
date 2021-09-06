@@ -1,11 +1,22 @@
 const mapLevel = document.querySelector("canvas").getContext("2d");
+const KarmaticArcade_font = new FontFace('Karmatic-Arcade', 'url(Font/ka1.ttf)');
+KarmaticArcade_font.load().then(function(font) {
+  // Ready to use the font in a canvas context
+  console.log('font ready');
+
+  // Add font on the html page
+  document.fonts.add(font);
+});
 height = 448;
 width = 1024;
+timer = 60;
+score = 0;
 foods = new Array;
 shelves = new Array;
 mapLevel.canvas.height = height;
 mapLevel.canvas.width = width;
 currentLevel = 0; //debug purpose
+foodString = ["bacon", "cheese", "bbq", "cookies", "chips", "soda", "wine", "banana", "pepper", "cabbage", "fish", "apple", "milk", "beef"]
 
 //random starting values
 money = 100
@@ -79,11 +90,24 @@ const buildShelves2 = function(ctx, level)
     }
 }
 
+const putFood = function(){
+    //some random foods (bacon being a placeholder for now, some foods dont work and no clue why)
+    index = 0
+    for (i = 0; i < shelves.length; i++) {
+        index += 1;
+        if (index >= foodString.length)
+        {
+            index = 0;
+        }
+        new FoodItem(foodString[index], 100)
+    }
+}
+
 class Shelf {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.widht = 32;
+        this.width = 32;
         this.height = 32;
         shelves.push(this);
         this.hasFood = Boolean(false);
@@ -120,7 +144,7 @@ class FoodItem {
     };
 }
 const levels = [[
-	[0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
 	[0,0,1,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0],
 	[0,0,1,0,1,1,1,1,1,1,1,0,1,0,1,0,1,1,1,1,0,0,1,0,0,0,1,1,1,1,0,0],
 	[0,0,1,0,0,0,0,0,0,0,1,0,1,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0],
@@ -211,9 +235,31 @@ const controller = {
 
 };
 
+drawScore = function(ctx) {
+	ctx.fillStyle = "rgba(30,30,30,0.3)";
+	ctx.fillRect(768,0,256,32);
+	ctx.font = "24px Karmatic-Arcade";
+	ctx.fillStyle = "rgba(255,255,255,1)";
+	if (score >= 0) {
+		scoreString = score.toString().padStart(6,"0");
+	}
+	else {
+		scoreString = (-score).toString().padStart(6,"0").padStart(7,"-");
+	}
+	ctx.fillText("Score "+scoreString,774,24);
+}
+
+drawTimer = function(ctx) {
+	ctx.fillStyle = "rgba(30,30,30,0.3)";
+	ctx.fillRect((width/2) - 32,0,64,32);
+	ctx.font = "24px Karmatic-Arcade";
+	ctx.fillStyle = "rgba(255,255,255,1)";
+	ctx.fillText(timer.toString().padStart(2,"0"),(width/2) - 25,24);
+}
+
 //Loop where all the important stuff happens
 const loop = function () {
-    speed = 0.25;
+    speed = 0.5;
     if (controller.up) {
             player.yVelocity -= speed;
     }
@@ -261,6 +307,8 @@ const loop = function () {
     buildShelves(mapLevel, currentLevel);  
     player.draw(mapLevel);
     drawFood(mapLevel);
+	drawScore(mapLevel);
+	drawTimer(mapLevel);
     
 
   // call update when the browser is ready to draw again
@@ -271,10 +319,8 @@ const loop = function () {
 //builds shelf objects 
 buildShelves2(mapLevel, currentLevel);
 
-//some random foods (bacon being a placeholder for now, some foods dont work because I'm an idiot)
-for (i = 0; i < shelves.length; i++) {
-    new FoodItem("bacon", 10, 100)
-}
+putFood();
+
 
 //add food to shelves
 shelves.map(x => x.placeItem(foods[shelves.indexOf(x)]))
