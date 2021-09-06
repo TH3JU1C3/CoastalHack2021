@@ -18,7 +18,7 @@ shelves = new Array;
 mapLevel.canvas.height = height;
 mapLevel.canvas.width = width;
 currentLevel = 0; //debug purpose
-foodString = [["bacon", -1000], ["cheese", 700], ["bbq", -500], ["cookies", -300], ["chips", -400], ["soda", -800], ["wine", 0], ["banana", 1000], ["pepper", 900], ["cabbage", 600], ["fish", 700], ["apple", 2000], ["milk", 1500], ["beef", 900]]
+foodString = [["bacon", -1000], ["cheese", 700], ["bbq", -500], ["cookies", -300], ["chips", -400], ["soda", -800], ["wine", 0], ["banana", 1000], ["pepper", 600], ["cabbage", 600], ["fish", 700], ["apple", 2000], ["milk", 300], ["beef", 400]]
 speed = 0.5;
 
 //collision detection functions
@@ -116,6 +116,24 @@ const putFood = function(){
     }
 }
 
+const shuffle = function(array) {
+    var currentIndex = array.length,  randomIndex;
+  
+    // While there remain elements to shuffle...
+    while (currentIndex != 0) {
+  
+      // Pick a remaining element...
+      randomIndex = Math.floor(Math.random() * currentIndex);
+      currentIndex--;
+  
+      // And swap it with the current element.
+      [array[currentIndex], array[randomIndex]] = [
+        array[randomIndex], array[currentIndex]];
+    }
+  
+    return array;
+  }
+
 class Shelf {
     constructor(x, y) {
         this.x = x;
@@ -150,6 +168,10 @@ class FoodItem {
                 if(this.scoreVal < 0)
                 {
                     speed += 0.1
+                }
+                if(speed > 2)
+                {
+                    speed = 0.1
                 }
                 score += this.scoreVal
                 delete foods[foods.indexOf(this)]
@@ -349,24 +371,7 @@ buildShelves2(mapLevel, currentLevel);
 
 putFood();
 
-shuffle = function(array) {
-    var currentIndex = array.length,  randomIndex;
-  
-    // While there remain elements to shuffle...
-    while (currentIndex != 0) {
-  
-      // Pick a remaining element...
-      randomIndex = Math.floor(Math.random() * currentIndex);
-      currentIndex--;
-  
-      // And swap it with the current element.
-      [array[currentIndex], array[randomIndex]] = [
-        array[randomIndex], array[currentIndex]];
-    }
-  
-    return array;
-  }
-  foods = shuffle(foods)
+foods = shuffle(foods)
 //add food to shelves
 shelves.map(x => x.placeItem(foods[shelves.indexOf(x)]))
 
