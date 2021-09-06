@@ -240,7 +240,8 @@ drawScore = function(ctx) {
 	ctx.fillRect(768,0,256,32);
 	ctx.font = "24px Karmatic-Arcade";
 	ctx.fillStyle = "rgba(255,255,255,1)";
-	ctx.fillText("Score 000000",774,24);
+	scoreString = score.toString().padStart(6,"0");
+	ctx.fillText("Score "+scoreString,774,24);
 }
 
 //Loop where all the important stuff happens
