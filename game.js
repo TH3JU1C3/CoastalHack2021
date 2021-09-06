@@ -150,7 +150,7 @@ class FoodItem {
             ctx.drawImage(this.img, this.xpos, this.ypos);
         }
         this.playerdis = function() {                   //checks distance to player, if short enough, remove this item
-            if (distance(player, this) < 16 && (money >= this.price)) {
+            if (distance(player, this) < 31 && (money >= this.price)) {
                 money -= this.price
                 delete foods[foods.indexOf(this)]
             }
