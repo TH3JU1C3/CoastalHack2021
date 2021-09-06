@@ -16,6 +16,7 @@ shelves = new Array;
 mapLevel.canvas.height = height;
 mapLevel.canvas.width = width;
 currentLevel = 0; //debug purpose
+foodString = ["bacon", "cheese", "bbq", "cookies", "chips", "soda", "wine", "banana", "pepper", "cabbage", "fish", "apple", "milk", "beef"]
 
 //random starting values
 money = 100
@@ -86,6 +87,19 @@ const buildShelves2 = function(ctx, level)
             shelfX += 32;
         }
         shelfY += 32;
+    }
+}
+
+const putFood = function(){
+    //some random foods (bacon being a placeholder for now, some foods dont work and no clue why)
+    index = 0
+    for (i = 0; i < shelves.length; i++) {
+        index += 1;
+        if (index >= foodString.length)
+        {
+            index = 0;
+        }
+        new FoodItem(foodString[index], 100)
     }
 }
 
@@ -290,10 +304,8 @@ const loop = function () {
 //builds shelf objects 
 buildShelves2(mapLevel, currentLevel);
 
-//some random foods (bacon being a placeholder for now, some foods dont work and no clue why)
-for (i = 0; i < shelves.length; i++) {
-    new FoodItem("bacon", 10, 100)
-}
+putFood();
+
 
 //add food to shelves
 shelves.map(x => x.placeItem(foods[shelves.indexOf(x)]))
