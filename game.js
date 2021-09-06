@@ -7,6 +7,10 @@ mapLevel.canvas.height = height;
 mapLevel.canvas.width = width;
 currentLevel = 0; //debug purpose
 
+//random starting values
+money = 100
+calories = 0
+
 const distance = function(a, b) {       //a is the player, b is the food. calculates the distance between the two, and returns said distance
     x = Math.abs(a.x - b.xpos)
     y = Math.abs(a.y - b.ypos)
@@ -109,7 +113,8 @@ class FoodItem {
             ctx.drawImage(this.img, this.xpos, this.ypos);
         }
         this.playerdis = function() {                   //checks distance to player, if short enough, remove this item
-            if (distance(player, this) < 16) {
+            if (distance(player, this) < 16 && (money >= this.price)) {
+                money -= this.price
                 delete foods[foods.indexOf(this)]
             }
         }
@@ -267,7 +272,7 @@ const loop = function () {
 //builds shelf objects 
 buildShelves2(mapLevel, currentLevel);
 
-//some random foods (bacon being a placeholder for now)
+//some random foods (bacon being a placeholder for now, some foods dont work and no clue why)
 for (i = 0; i < shelves.length; i++) {
     new FoodItem("bacon", 10, 100)
 }
