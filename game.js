@@ -17,7 +17,7 @@ foods = new Array;
 shelves = new Array;
 mapLevel.canvas.height = height;
 mapLevel.canvas.width = width;
-currentLevel = 0; //debug purpose
+currentLevel = 1; 
 foodString = [["bacon", -1000], ["cheese", 700], ["bbq", -500], ["cookies", -300], ["chips", -400], ["soda", -800], ["wine", 0], ["banana", 1000], ["pepper", 600], ["cabbage", 600], ["fish", 700], ["apple", 2000], ["milk", 300], ["beef", 400]]
 speed = 0.5;
 
@@ -92,7 +92,7 @@ const buildShelves2 = function(ctx, level)
         shelfX = 0;
         for (j = 0; j < levels[0][0].length; j++)
         {
-            shelf = levels[0][i][j]
+            shelf = levels[currentLevel][i][j]
             if (shelf)
             {
                 new Shelf(shelfX, shelfY);
