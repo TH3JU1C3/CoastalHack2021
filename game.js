@@ -7,6 +7,8 @@ KarmaticArcade_font.load().then(function(font) {
   // Add font on the html page
   document.fonts.add(font);
 });
+document.getElementById("musicPlayer").volume = 0.2;
+document.getElementById("musicPlayer").currentTime = 1;
 height = 448;
 width = 1024;
 timer = 60;
