@@ -98,10 +98,9 @@ class Shelf {
     }
 }
 class FoodItem {
-    constructor(name, price, cals) {
+    constructor(name, price) {
         this.name = name;
         this.price = price;
-        this.cals = cals;
         this.xpos = 0;
         this.ypos = 0;
         this.img = document.getElementById(name)
