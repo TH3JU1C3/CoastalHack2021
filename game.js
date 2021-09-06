@@ -17,7 +17,12 @@ foods = new Array;
 shelves = new Array;
 mapLevel.canvas.height = height;
 mapLevel.canvas.width = width;
-currentLevel = 1; 
+currentLevel = 0; 
+const GAMESTATE = {
+	RUNNING: 0,
+	GAME_OVER: 1
+};
+let gamestate = GAMESTATE.RUNNING;
 foodString = [["bacon", -1000], ["cheese", 700], ["bbq", -500], ["cookies", -300], ["chips", -400], ["soda", -800], ["wine", 0], ["banana", 1000], ["pepper", 600], ["cabbage", 600], ["fish", 700], ["apple", 2000], ["milk", 300], ["beef", 400]]
 speed = 0.5;
 
@@ -275,6 +280,7 @@ drawScore = function(ctx) {
 	ctx.fillStyle = "rgba(30,30,30,0.3)";
 	ctx.fillRect(768,0,256,32);
 	ctx.font = "24px Karmatic-Arcade";
+	ctx.textAlign = "left";
 	ctx.fillStyle = "rgba(255,255,255,1)";
 	if (score >= 0) {
 		scoreString = score.toString().padStart(6,"0");
@@ -289,12 +295,14 @@ drawTimer = function(ctx) {
 	ctx.fillStyle = "rgba(30,30,30,0.3)";
 	ctx.fillRect((width/2) - 32,0,64,32);
 	ctx.font = "24px Karmatic-Arcade";
+	ctx.textAlign = "center";
 	ctx.fillStyle = "rgba(255,255,255,1)";
-	ctx.fillText(timer.toString().padStart(2,"0"),(width/2) - 25,24);
+	ctx.fillText(timer.toString().padStart(2,"0"),(width/2),24);
 }
 
 decrementTime = function(dTime) {
 	if (timer == 0) {
+		nextLevel();
 		return;
 	}
 	if (dTime > 1000) {
@@ -302,8 +310,43 @@ decrementTime = function(dTime) {
 	}
 }
 
+nextLevel = function() {
+	if (currentLevel == 0) {
+		player.x = 0;
+		player.y = 0;
+		player.xVelocity = 0;
+		player.yVelocity = 0;
+		speed = 0.5;
+		currentLevel++;
+		shelves = [];
+		foods = [];
+		buildShelves2(mapLevel, currentLevel);
+		putFood();
+		foods = shuffle(foods);
+		//add food to shelves
+		shelves.map(x => x.placeItem(foods[shelves.indexOf(x)]));
+		timer = 60;
+	}
+	else {
+		gamestate = GAMESTATE.GAME_OVER;
+	}
+}
+
 //Loop where all the important stuff happens
 const loop = function (timestamp) {
+	
+	if (gamestate == GAMESTATE.GAME_OVER) {
+		mapLevel.fillStyle = "#000000";
+		mapLevel.fillRect(0,0,width,height);
+		mapLevel.fillStyle = "#FFFFFF";
+		mapLevel.font = "24px Karmatic-Arcade";
+		mapLevel.textAlign = "center";
+		mapLevel.fillText("Game over!",width/2,height/2 - 32);
+		mapLevel.fillText("Your score was",width/2,height/2);
+		mapLevel.fillText(score.toString(),width/2,height/2 + 32);
+		return;
+	}
+	
 	let dTime = timestamp - lastTime;
 	if (dTime > 1000) {
 		lastTime = timestamp;
