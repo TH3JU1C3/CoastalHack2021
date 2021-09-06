@@ -83,8 +83,8 @@ class Shelf {
     constructor(x, y) {
         this.x = x;
         this.y = y;
-        this.width = 32;
-        this.heigth = 32;
+        this.widht = 32;
+        this.height = 32;
         shelves.push(this);
         this.hasFood = Boolean(false);
         this.placeItem = function (food) {
@@ -271,7 +271,7 @@ const loop = function () {
 //builds shelf objects 
 buildShelves2(mapLevel, currentLevel);
 
-//some random foods (bacon being a placeholder for now, some foods dont work and no clue why)
+//some random foods (bacon being a placeholder for now, some foods dont work because I'm an idiot)
 for (i = 0; i < shelves.length; i++) {
     new FoodItem("bacon", 10, 100)
 }
