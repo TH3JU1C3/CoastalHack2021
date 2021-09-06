@@ -293,8 +293,22 @@ drawTimer = function(ctx) {
 	ctx.fillText(timer.toString().padStart(2,"0"),(width/2) - 25,24);
 }
 
+decrementTime = function(dTime) {
+	if (timer == 0) {
+		return;
+	}
+	if (dTime > 1000) {
+		timer--;
+	}
+}
+
 //Loop where all the important stuff happens
-const loop = function () {
+const loop = function (timestamp) {
+	let dTime = timestamp - lastTime;
+	if (dTime > 1000) {
+		lastTime = timestamp;
+	}
+	decrementTime(dTime);
     if (controller.up) {
             player.yVelocity -= speed;
     }
@@ -377,4 +391,5 @@ shelves.map(x => x.placeItem(foods[shelves.indexOf(x)]))
 
 window.addEventListener("keydown", controller.keyListener);
 window.addEventListener("keyup", controller.keyListener);
+let lastTime = 0;
 window.requestAnimationFrame(loop);
