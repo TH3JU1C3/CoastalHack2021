@@ -13,3 +13,4 @@
 (Boolean(true),  "Apple",               0.5,    12,    ???)
 (Boolean(true),  "Milk",                1.0,    9,     ???)
 (Boolean(true),  "Beef",                5.0,    20,    ???)
+(Boolean(true),  "flour",               5.2,    50,    ???)

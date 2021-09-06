@@ -7,6 +7,12 @@ mapLevel.canvas.height = height;
 mapLevel.canvas.width = width;
 currentLevel = 0; //debug purpose
 
+const distance = function(a, b) {       //a is the player, b is the food. calculates the distance between the two, and returns said distance
+    x = Math.abs(a.x - b.xpos)
+    y = Math.abs(a.y - b.ypos)
+    return Math.sqrt(x * x + (y * y))
+}
+
 //Makes floor
 const makeFloor = function(ctx)
 {
@@ -14,6 +20,11 @@ const makeFloor = function(ctx)
     var pattern = ctx.createPattern(floor, 'repeat');
     ctx.fillStyle = pattern;
     ctx.fillRect(0,0,width, height);
+}
+
+const drawFood = function(ctx) {            //all the food stuff that needs to be in the loop.
+    foods.map(x => x.draw(ctx));
+    foods.map(x => x.playerdis());
 }
 
 //Paints shelves from the level array
@@ -79,18 +90,30 @@ class Shelf {
                 this.hasFood = Boolean(true);
             }
         };
-        const FoodItem = function (name, price, cals) {
-            this.name = name;
-            this.price = price;
-            this.cals = cals;
-            this.xpos = 0;
-            this.ypos = 0;
-            foods.push(this); //adds food to the list of foods
-            this.showPrice = function () {
-                return "$" + this.price.toString;
-            };
-        };
+
     }
+}
+class FoodItem {
+    constructor(name, price, cals) {
+        this.name = name;
+        this.price = price;
+        this.cals = cals;
+        this.xpos = 0;
+        this.ypos = 0;
+        this.img = document.getElementById(name)
+        foods.push(this); //adds food to the list of foods
+        this.showPrice = function () {
+            return "$" + this.price.toString;
+        };
+        this.draw = function(ctx) {
+            ctx.drawImage(this.img, this.xpos, this.ypos);
+        }
+        this.playerdis = function() {                   //checks distance to player, if short enough, remove this item
+            if (distance(player, this) < 16) {
+                delete foods[foods.indexOf(this)]
+            }
+        }
+    };
 }
 const levels = [[
 	[0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0],
@@ -233,6 +256,7 @@ const loop = function () {
     makeFloor(mapLevel);  
     buildShelves(mapLevel, currentLevel);  
     player.draw(mapLevel);
+    drawFood(mapLevel);
     
 
   // call update when the browser is ready to draw again
@@ -242,6 +266,14 @@ const loop = function () {
 
 //builds shelf objects 
 buildShelves2(mapLevel, currentLevel);
+
+//some random foods (bacon being a placeholder for now)
+for (i = 0; i < shelves.length; i++) {
+    new FoodItem("bacon", 10, 100)
+}
+
+//add food to shelves
+shelves.map(x => x.placeItem(foods[shelves.indexOf(x)]))
 
 window.addEventListener("keydown", controller.keyListener);
 window.addEventListener("keyup", controller.keyListener);
