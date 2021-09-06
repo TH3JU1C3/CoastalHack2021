@@ -1,6 +1,16 @@
 const mapLevel = document.querySelector("canvas").getContext("2d");
+const KarmaticArcade_font = new FontFace('Karmatic-Arcade', 'url(Font/ka1.ttf)');
+KarmaticArcade_font.load().then(function(font) {
+  // Ready to use the font in a canvas context
+  console.log('font ready');
+
+  // Add font on the html page
+  document.fonts.add(font);
+});
 height = 448;
 width = 1024;
+timer = 60;
+score = 0;
 foods = new Array;
 shelves = new Array;
 mapLevel.canvas.height = height;
@@ -211,9 +221,17 @@ const controller = {
 
 };
 
+drawScore = function(ctx) {
+	ctx.fillStyle = "rgba(30,30,30,0.3)";
+	ctx.fillRect(768,0,256,32);
+	ctx.font = "24px Karmatic-Arcade";
+	ctx.fillStyle = "rgba(255,255,255,1)";
+	ctx.fillText("Score 000000",774,24);
+}
+
 //Loop where all the important stuff happens
 const loop = function () {
-    speed = 0.25;
+    speed = 0.5;
     if (controller.up) {
             player.yVelocity -= speed;
     }
@@ -261,6 +279,7 @@ const loop = function () {
     buildShelves(mapLevel, currentLevel);  
     player.draw(mapLevel);
     drawFood(mapLevel);
+	drawScore(mapLevel);
     
 
   // call update when the browser is ready to draw again
