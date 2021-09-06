@@ -18,11 +18,7 @@ shelves = new Array;
 mapLevel.canvas.height = height;
 mapLevel.canvas.width = width;
 currentLevel = 0; //debug purpose
-foodString = ["bacon", "cheese", "bbq", "cookies", "chips", "soda", "wine", "banana", "pepper", "cabbage", "fish", "apple", "milk", "beef"]
-
-//random starting values
-money = 10000000
-calories = 0
+foodString = [["bacon", -1000], ["cheese", 70], ["bbq", -500], ["cookies", -300], ["chips", -400], ["soda", -800], ["wine", 80], ["banana", 100], ["pepper", 90], ["cabbage", 60], ["fish", 70], ["apple", 200], ["milk", 150], ["beef", 200]]
 
 //collision detection functions
 const shelfcolleft = function(curshelf) {
@@ -115,7 +111,7 @@ const putFood = function(){
         {
             index = 0;
         }
-        new FoodItem(foodString[index], 100)
+        new FoodItem(foodString[index][0], foodString[index][1])
     }
 }
 
@@ -138,22 +134,19 @@ class Shelf {
     }
 }
 class FoodItem {
-    constructor(name, price) {
+    constructor(name, scoreVal) {
         this.name = name;
-        this.price = price;
+        this.scoreVal = scoreVal;
         this.xpos = 0;
         this.ypos = 0;
         this.img = document.getElementById(name)
         foods.push(this); //adds food to the list of foods
-        this.showPrice = function () {
-            return "$" + this.price.toString;
-        };
         this.draw = function(ctx) {
             ctx.drawImage(this.img, this.xpos, this.ypos);
         }
         this.playerdis = function() {                   //checks distance to player, if short enough, remove this item
-            if (distance(player, this) < 31 && (money >= this.price)) {
-                money -= this.price
+            if (distance(player, this) < 30) {
+                score += this.scoreVal
                 delete foods[foods.indexOf(this)]
             }
         }
