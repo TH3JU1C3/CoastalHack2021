@@ -144,7 +144,7 @@ class FoodItem {
     };
 }
 const levels = [[
-	[0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0],
+	[0,0,0,0,0,0,0,0,0,0,1,1,1,0,0,0,0,0,0,0,0,0,1,0,0,0,0,0,0,0,0,0],
 	[0,0,1,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,1,0,0,0,1,0,0,0,0,0,0,0,0,0],
 	[0,0,1,0,1,1,1,1,1,1,1,0,1,0,1,0,1,1,1,1,0,0,1,0,0,0,1,1,1,1,0,0],
 	[0,0,1,0,0,0,0,0,0,0,1,0,1,0,1,0,1,0,0,0,0,0,1,0,0,0,0,0,0,1,0,0],
@@ -249,6 +249,14 @@ drawScore = function(ctx) {
 	ctx.fillText("Score "+scoreString,774,24);
 }
 
+drawTimer = function(ctx) {
+	ctx.fillStyle = "rgba(30,30,30,0.3)";
+	ctx.fillRect((width/2) - 32,0,64,32);
+	ctx.font = "24px Karmatic-Arcade";
+	ctx.fillStyle = "rgba(255,255,255,1)";
+	ctx.fillText(timer.toString().padStart(2,"0"),(width/2) - 25,24);
+}
+
 //Loop where all the important stuff happens
 const loop = function () {
     speed = 0.5;
@@ -300,6 +308,7 @@ const loop = function () {
     player.draw(mapLevel);
     drawFood(mapLevel);
 	drawScore(mapLevel);
+	drawTimer(mapLevel);
     
 
   // call update when the browser is ready to draw again
