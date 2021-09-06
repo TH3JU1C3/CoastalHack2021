@@ -84,7 +84,7 @@ class Shelf {
         this.x = x;
         this.y = y;
         this.width = 32;
-        this.heigth = 32;
+        this.height = 32;
         shelves.push(this);
         this.hasFood = Boolean(false);
         this.placeItem = function (food) {
