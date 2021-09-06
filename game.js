@@ -18,7 +18,7 @@ shelves = new Array;
 mapLevel.canvas.height = height;
 mapLevel.canvas.width = width;
 currentLevel = 0; //debug purpose
-foodString = [["bacon", -1000], ["cheese", 70], ["bbq", -500], ["cookies", -300], ["chips", -400], ["soda", -800], ["wine", 80], ["banana", 100], ["pepper", 90], ["cabbage", 60], ["fish", 70], ["apple", 200], ["milk", 150], ["beef", 200]]
+foodString = [["bacon", -1000], ["cheese", 700], ["bbq", -500], ["cookies", -300], ["chips", -400], ["soda", -800], ["wine", 0], ["banana", 1000], ["pepper", 900], ["cabbage", 600], ["fish", 700], ["apple", 2000], ["milk", 1500], ["beef", 900]]
 speed = 0.5;
 
 //collision detection functions
